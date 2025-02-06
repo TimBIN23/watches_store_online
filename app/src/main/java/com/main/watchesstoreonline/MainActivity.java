@@ -60,6 +60,6 @@ public class MainActivity extends AppCompatActivity {
         // Set the RecyclerView's LayoutManager and Adapter
         offersRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         offersRecyclerView.setAdapter(offerAdapter);
-
+        // testing comment
     }
 }
