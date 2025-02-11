@@ -1,21 +1,31 @@
 package com.main.watchesstoreonline;
 
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
+import com.main.watchesstoreonline.controllers.BannerAdapter;
 import com.main.watchesstoreonline.controllers.CategoryAdapter;
 import com.main.watchesstoreonline.controllers.OfferAdapter;
+import com.main.watchesstoreonline.controllers.ProductsAdapter;
+import com.main.watchesstoreonline.models.BannerItem;
 import com.main.watchesstoreonline.models.Category;
 import com.main.watchesstoreonline.models.Offer;
+import com.main.watchesstoreonline.models.Product;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -60,6 +70,32 @@ public class MainActivity extends AppCompatActivity {
         // Set the RecyclerView's LayoutManager and Adapter
         offersRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         offersRecyclerView.setAdapter(offerAdapter);
-        // testing comment
+
+
+        // Initialize bannerViewPager
+        ViewPager2 bannerViewPager = findViewById(R.id.bannerViewPager);
+        // Create banner list
+        ArrayList<BannerItem> bannerList = new ArrayList<>();
+        bannerList.add(new BannerItem(R.drawable.banner1, "New Classic", "SAVE UP TO 80% OFF"));
+        bannerList.add(new BannerItem(R.drawable.banner2, "On Timex Watches", "FLAT 33% OFF"));
+        bannerList.add(new BannerItem(R.drawable.banner3, "Luxury Timepieces", "Exclusive Collection"));
+        // Set up adapter
+        BannerAdapter bannerAdapter = new BannerAdapter(bannerList);
+        bannerViewPager.setAdapter(bannerAdapter);
+
+
+        // Step 1: Find the RecyclerView by its ID
+        RecyclerView productsRecyclerView = findViewById(R.id.productsRecyclerView);
+        List<Product> productList = new ArrayList<>();
+
+        // Adding sample products
+        productList.add(new Product("Smart Watch", R.drawable.w20, 99, 1999, 2.5f, 39, 50, true));
+        productList.add(new Product("Sports Watch", R.drawable.w19, 150, 999, 4f, 50, 30, false));
+        productList.add(new Product("KD Watch", R.drawable.w23, 120, 230, 4.7f, 50, 40, true));
+        productList.add(new Product("MD Watch", R.drawable.w22, 50, 200, 3f, 50, 10, true));
+
+        ProductsAdapter adapter = new ProductsAdapter(productList);
+        productsRecyclerView.setAdapter(adapter);
+
     }
 }
