@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+<!--        &lt;!&ndash; Wishlist Icon &ndash;&gt;-->
+<!--        <ImageView-->
+<!--            android:id="@+id/wishlistIcon"-->
+<!--            android:layout_width="24dp"-->
+<!--            android:layout_height="24dp"-->
+<!--            android:layout_gravity="top"-->
+<!--            android:src="@drawable/ic_heart_outline" />-->
+<!--        &lt;!&ndash; Discount Badge as TextView &ndash;&gt;-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/discountBadge"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="end"-->
+<!--            android:background="@drawable/discount_badge"-->
+<!--            android:padding="4dp"-->
+<!--            android:text="50%"-->
+<!--            android:textColor="@android:color/white"-->
+<!--            android:textSize="14sp" />-->
+        <!-- Wishlist Icon and Discount Badge on the same row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="top|start"
+            android:padding="8dp">
+
+            <!-- Wishlist Icon -->
+            <ImageView
+                android:id="@+id/wishlistIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_heart_outline" />
+            <!-- Spacer to push the discount badge to the right -->
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+            <!-- Discount Badge as TextView -->
+            <TextView
+                android:id="@+id/discountBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/discount_badge"
+                android:padding="4dp"
+                android:text="50%"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+
+        <!-- Product Image -->
+        <ImageView
+            android:id="@+id/productImage"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_gravity="top"
+            android:src="@drawable/w19" />
+        <!-- Product Name -->
+        <TextView
+            android:id="@+id/productName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Smart Watches"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+        <!-- Rating & Reviews -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RatingBar
+                android:id="@+id/productRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:rating="4"
+                android:stepSize="0.5"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                android:progressTint="@android:color/holo_orange_dark"
+                android:secondaryProgressTint="@android:color/darker_gray"
+                android:indeterminateTint="@android:color/darker_gray"
+                />
+            <TextView
+                android:id="@+id/reviewCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(39 Reviews)"
+                android:textSize="12sp"
+                android:textColor="@android:color/darker_gray" />
+        </LinearLayout>
+        <!-- Product Price -->
+        <TextView
+            android:id="@+id/productPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rs 99.00"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+        <!-- Original Price (Strikethrough) -->
+        <TextView
+            android:id="@+id/productOriginalPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rs 1999.00"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp"
+            />
+        <!-- "Shop Now" Button -->
+        <Button
+            android:id="@+id/shopNowButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/holo_orange_dark"
+            android:text="SHOP NOW"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
