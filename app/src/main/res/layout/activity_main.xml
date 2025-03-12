@@ -21,7 +21,6 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:title="WATCH SHOPPING APP"
         app:titleTextColor="#006ba6">
-
         <!-- search -->
         <ImageView
             android:id="@+id/searchIcon"

@@ -26,12 +26,104 @@ import com.main.watchesstoreonline.models.Product;
 
 import java.util.ArrayList;
 import java.util.List;
+//package com.main.watchesstoreonline;
+
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
+
+    private SharedPreferences sharedPreferences;
+    private static final String PREF_NAME = "LoginPrefs";
+    private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
+    private static final String KEY_REGISTERED_EMAIL = "registeredEmail";
+    private static final String KEY_REGISTERED_PASSWORD = "registeredPassword";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+
+        // Check if user is already logged in
+        if (sharedPreferences.getBoolean(KEY_IS_LOGGED_IN, false)) {
+            showMainLayout();
+        } else {
+            showLoginLayout();
+        }
+    }
+
+    private void showLoginLayout() {
+        setContentView(R.layout.login_item);
+
+        EditText emailEditText = findViewById(R.id.user_email);
+        EditText passwordEditText = findViewById(R.id.user_password);
+        CheckBox rememberMeCheckBox = findViewById(R.id.remember_me);
+        Button loginButton = findViewById(R.id.login_button);
+        TextView signUpButton = findViewById(R.id.link_register);
+
+        loginButton.setOnClickListener(v -> {
+            String email = emailEditText.getText().toString().trim();
+            String password = passwordEditText.getText().toString().trim();
+
+            // Retrieve stored credentials
+            String registeredEmail = sharedPreferences.getString(KEY_REGISTERED_EMAIL, "");
+            String registeredPassword = sharedPreferences.getString(KEY_REGISTERED_PASSWORD, "");
+
+            if (email.equals(registeredEmail) && password.equals(registeredPassword)) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean(KEY_IS_LOGGED_IN, rememberMeCheckBox.isChecked());
+                editor.apply();
+                showMainLayout();
+            } else {
+                Toast.makeText(MainActivity.this, "Invalid credentials", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Sign-Up Button Click → Show Register Layout
+        signUpButton.setOnClickListener(v -> showSignUpLayout());
+    }
+
+    private void showSignUpLayout() {
+        setContentView(R.layout.sign_up);
+
+        EditText userName = findViewById(R.id.sign_up_name);
+        EditText userEmail = findViewById(R.id.sign_up_email);
+        EditText userPassword = findViewById(R.id.sign_up_password);
+        Button registerButton = findViewById(R.id.btnRegister);
+        Button loginButton = findViewById(R.id.btnLogin);
+
+        registerButton.setOnClickListener(v -> {
+            String username = userName.getText().toString().trim();
+            String email = userEmail.getText().toString().trim();
+            String password = userPassword.getText().toString().trim();
+
+            if (!username.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
+                // Store user credentials in SharedPreferences
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(KEY_REGISTERED_EMAIL, email);
+                editor.putString(KEY_REGISTERED_PASSWORD, password);
+                editor.apply();
+
+                Toast.makeText(MainActivity.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
+                showLoginLayout();
+            } else {
+                Toast.makeText(MainActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+            }
+        });
+        loginButton.setOnClickListener(v -> showLoginLayout());
+    }
+
+    private void showMainLayout() {
+        setContentView(R.layout.activity_main);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -96,6 +188,6 @@ public class MainActivity extends AppCompatActivity {
 
         ProductsAdapter adapter = new ProductsAdapter(productList);
         productsRecyclerView.setAdapter(adapter);
-
     }
+
 }

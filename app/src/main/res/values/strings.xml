@@ -3,4 +3,5 @@
     <string name="category">Category</string>
     <string name="textImage">TextView</string>
     <string name="offer">Offer Image</string>
+    <string name="password">Password</string>
 </resources>
